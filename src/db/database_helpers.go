@@ -60,15 +60,19 @@ func QueryForString(query string) string{// to return strings
 		fmt.Println("error executing query", err)
 		return ""
 	} else {
-		
-		for rows.Next() {
-			err = rows.Scan(&returnStr)
-			fmt.Println(returnStr)
-			if err != nil {
-				fmt.Println(err)
+		if rows.Next != nil{
+			for rows.Next() {
+				err = rows.Scan(&returnStr)
+				fmt.Println(returnStr)
+				if err != nil {
+					fmt.Println(err)
+				}
+				
 			}
-			
+		} else {
+			return ""
 		}
+		
 	}
 	return returnStr
 }
@@ -89,15 +93,19 @@ func Query(query string) int {// to return integers
 		fmt.Println("error executing query", err)
 		return 0
 	} else {
-		
-		for rows.Next() {
-			err = rows.Scan(&returnNum)
-			fmt.Println(returnNum)
-			if err != nil {
-				fmt.Println(err)
+		if rows.Next != nil{
+			for rows.Next() {
+				err = rows.Scan(&returnNum)
+				fmt.Println(returnNum)
+				if err != nil {
+					fmt.Println(err)
+				}
+				
 			}
-			
+		} else {
+			return 0
 		}
+		
 	}
 	return returnNum
 }

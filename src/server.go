@@ -217,13 +217,24 @@ func CheckFreeSpaceOnFloor(w http.ResponseWriter, r *http.Request) {
 	}()
 	//get floor num
 	floorNum := r.Header.Get("floorNum")
-	//get 2 wheeler and 4 wheeler slot capacity of the floor
-	query := `Select numTwoWheelerSlots from lot where floorNum = ` + floorNum + `;`
-	openTwoWheelerSlots := db.Query(query)
-	query = `Select numFourWheelerSlots from lot where floorNum = ` + floorNum + `;`
-	openFourWheelerSlots := db.Query(query)
-	//get count of occupied spots and subtract
-	responseData := strconv.Itoa(openTwoWheelerSlots) + ` Two Wheeler slots and ` + strconv.Itoa(openFourWheelerSlots) + ` four wheeler slots are available on floor no. ` + floorNum
-	byteResponseData := []byte(responseData)
-	w.Write(byteResponseData)
+	//check if a row with that number exists in the parking lot. querying the same field since it does not matter, it is only a check.
+	//Nice to have: ablity to execute EXISTS clause queries
+	checkQuery := `Select floorNum from lot where floorNum = ` + floorNum + `;`
+	floorNo := db.Query(checkQuery)
+	if floorNo != 0 {
+		//get 2 wheeler and 4 wheeler slot capacity of the floor
+		query := `Select numTwoWheelerSlots from lot where floorNum = ` + floorNum + `;`
+		openTwoWheelerSlots := db.Query(query)
+		query = `Select numFourWheelerSlots from lot where floorNum = ` + floorNum + `;`
+		openFourWheelerSlots := db.Query(query)
+		//get count of occupied spots and subtract
+		responseData := strconv.Itoa(openTwoWheelerSlots) + ` Two Wheeler slots and ` + strconv.Itoa(openFourWheelerSlots) + ` four wheeler slots are available on floor no. ` + floorNum
+		byteResponseData := []byte(responseData)
+		w.Write(byteResponseData)
+	} else{
+		responseData := ` invalid floor number `
+		byteResponseData := []byte(responseData)
+		w.Write(byteResponseData)
+	}
+	
 }
