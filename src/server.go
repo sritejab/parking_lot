@@ -14,6 +14,11 @@ import (
 )
 
 func main() {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in main")
+		}
+	}()
 	// code to close db connection when exiting the server
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -53,6 +58,11 @@ type floorJsonStruct struct{
 }
 
 func AllocateSlot(w http.ResponseWriter, r *http.Request) {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in AllocateSlot")
+		}
+	}()
 	var companyName string
 	var vehicleNum string
 	var numOfWheels int
@@ -131,6 +141,11 @@ func AllocateSlot(w http.ResponseWriter, r *http.Request) {
 }
 
 func FindParkedSpotByTicketID(w http.ResponseWriter, r *http.Request) {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in FindParkedSpotByTicketID")
+		}
+	}()
 	var vehicleNum, responseData string
 	var slotNum, floorNum int
 
@@ -163,6 +178,11 @@ func FindParkedSpotByTicketID(w http.ResponseWriter, r *http.Request) {
 }
 
 func FindParkedSpotByVehicleNum(w http.ResponseWriter, r *http.Request) {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in FindParkedSpotByVehicleNum")
+		}
+	}()
 	var vehicleNum, responseData string
 	var slotNum, floorNum int
 
@@ -190,6 +210,11 @@ func FindParkedSpotByVehicleNum(w http.ResponseWriter, r *http.Request) {
 }
 
 func CheckFreeSpaceOnFloor(w http.ResponseWriter, r *http.Request) {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in CheckFreeSpaceOnFloor")
+		}
+	}()
 	//get floor num
 	floorNum := r.Header.Get("floorNum")
 	//get 2 wheeler and 4 wheeler slot capacity of the floor

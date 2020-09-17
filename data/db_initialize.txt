@@ -1,0 +1,34 @@
+//cd into the data folder and run the following commands
+
+//to create a .db file called parkinglot
+sqlite3 parkinglot.db 
+
+
+// creating required tables
+CREATE TABLE lot (
+floorNum integer primary key autoincrement,
+company varchar(100),
+numTwoWheelerSlots integer,
+numFourWheelerSlots integer
+ );
+
+CREATE TABLE floor (
+slotNum integer primary key autoincrement,
+floorNum integer NOT NULL,
+vehicleNo varchar(100) ,
+numWheels int 
+ );
+
+CREATE TABLE ticket (
+ticketNum integer primary key autoincrement,
+floorNum integer NOT NULL,
+vehicleNo varchar(100)
+);
+
+//inserting values into tables
+INSERT INTO lot VALUES(1, "TouchNote", 2, 2) ;
+INSERT INTO lot VALUES(2, "Microsoft", 2, 2) ;
+INSERT INTO lot VALUES(3, "Amazon", 2, 2) ;
+INSERT INTO lot VALUES(4, "Factset", 2, 2) ;
+INSERT INTO lot VALUES(5, "OpsRamp", 2, 2) ;
+

@@ -12,6 +12,11 @@ import(
 var database *sql.DB
 
 func init() {
+	defer func() {
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in db package init")
+		}
+	}()
 	//get db file path dynamically from the server.exe running location
 	ExePath, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
@@ -29,6 +34,11 @@ func init() {
 }
 
 func Close(){
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in db package Close")
+		}
+	}()
 	fmt.Println("Closing db")
 	database.Close()
 	
@@ -36,6 +46,11 @@ func Close(){
 
 
 func QueryForString(query string) string{// to return strings
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in db package QueryForString")
+		}
+	}()
 
 	var returnStr string
 	fmt.Println("Query: ", query)
@@ -59,6 +74,11 @@ func QueryForString(query string) string{// to return strings
 }
 
 func Query(query string) int {// to return integers
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in db package Query")
+		}
+	}()
 
 	//selectQuery:= "select company, floorNum from lot"
 	var returnNum int
@@ -84,6 +104,11 @@ func Query(query string) int {// to return integers
 
 
 func ExecuteStatement(queryStmt string) {
+	defer func(){
+		if err1 := recover(); err1 != nil {
+			fmt.Println("Error occured, recovered in db package ExecuteStatement")
+		}
+	}()
 	fmt.Println(queryStmt)
 	_, err := database.Exec(queryStmt)
 	if err != nil {

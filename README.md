@@ -10,7 +10,7 @@ Requirements: Golang 1.11 and above
 1) Clone the repo
 2) cd into parking_lot folder
 3) In command prompt, enter "go mod init parking_lot"
-4) Run the database commands manually to initialize the database with required tables and data
+4) Run the database commands manually to initialize the database with required tables and data with commands from db_initialize.txt file
 5) cd to src folder and build the server.go file ("go build server.go")
 6) Run the server.exe and specify port number. Ex.: server.exe "8080"
 7) Make required API calls from your favourite API client.
